@@ -22,18 +22,17 @@ export default  function LoginForm() {
     onSubmit: async (formValue) => {
       setError("");
       const { email, password } = formValue;
-      await login(email,password);
-      console.log("ACA " + await typeof login(email,password))
+      const respuesta = await login(email,password);
+      respuesta != undefined ? setError(respuesta) : setError("")
     },
   });
 
-
   return (
-    <View>
+    <View style={styles.container}>
       <Spinner visible={isLoading}/>
       <Text style={styles.title}>Iniciar sesión</Text>
       <TextInput
-        placeholder="email"
+        placeholder="Email"
         style={styles.input}
         autoCapitalize="none"
         value={formik.values.email}
@@ -72,6 +71,12 @@ function validationSchema() {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 900
+  },
   title: {
     textAlign: "center",
     fontSize: 28,
@@ -81,6 +86,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
+    width: 300,
     margin: 12,
     borderWidth: 1,
     padding: 10,
