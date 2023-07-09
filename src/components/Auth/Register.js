@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import {  useFormik } from "formik";
 import * as Yup from "yup";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import Spinner from "react-native-loading-spinner-overlay";
-import { getUsers } from "../api/loginApi";
+import { getUsers } from "../../api/loginApi";
 
 export default function Register() {
 
