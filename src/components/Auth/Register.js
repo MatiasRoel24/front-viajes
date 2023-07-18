@@ -6,34 +6,30 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import {  useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import useAuth from "../../hooks/useAuth";
 import Spinner from "react-native-loading-spinner-overlay";
-import { getUsers } from "../../api/loginApi";
 
 export default function Register() {
-
-  console.log(getUsers())
-  
-
   const [error, setError] = useState("");
   const { register, isLoading } = useAuth();
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     validateOnChange: false,
-    onSubmit: (formValue) => {
+    onSubmit: async (formValue) => {
       setError("");
       const { username, email, password } = formValue;
-      register(username,email,password);
-      
+      const respuesta = await register(username, email, password);
+      console.log("RESUPUESTA-> " + respuesta)
+      respuesta != undefined ? setError(respuesta) : setError("");
     },
   });
 
   return (
     <View>
-      <Spinner visible={isLoading}/>
+      <Spinner visible={isLoading} />
       <Text style={styles.title}>Registro de usuarios</Text>
       <TextInput
         placeholder="Nombre de usuario"
@@ -64,6 +60,7 @@ export default function Register() {
       <Text style={styles.error}>{formik.errors.password}</Text>
 
       <Text style={styles.error}>{error}</Text>
+
     </View>
   );
 }

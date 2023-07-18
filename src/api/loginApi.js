@@ -35,10 +35,9 @@ export async function createUser(username, email, password) {
 
         const url = `${API_HOST}/usuarios`
         const userInfo = await fetch(url, requestOptions)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(result => {
-
-                console.log(result)
+               return result
             })
             .catch(error => {
 

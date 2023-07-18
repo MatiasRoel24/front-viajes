@@ -3,15 +3,15 @@ import React from 'react'
 import ProductCard from './ProductCard';
 
 export default function ProductsList(props) {
-    const { products } = props;
-
+    const { products, totales } = props;
+    
     return (
     <FlatList
         data={ products }
         numColumns={1}
         showsVerticalScrollIndicator={false}
         keyExtractor={ (item) => item._id}
-        renderItem={({item}) =>  <ProductCard product={item}/> }
+        renderItem={({item}) => <ProductCard product={item}/> }
         contentscreentyle={styles.flatListContentContainer}
     />
   

@@ -15,8 +15,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { useNavigation } from "@react-navigation/native";
 
 
-
-export default  function LoginForm(props) {  
+export default function LoginForm(props) {
   const [error, setError] = useState("");
   const { login, isLoading } = useAuth();
   const navigation = useNavigation();
@@ -27,60 +26,55 @@ export default  function LoginForm(props) {
     onSubmit: async (formValue) => {
       setError("");
       const { email, password } = formValue;
-      const respuesta = await login(email,password);
+      const respuesta = await login(email, password);
       respuesta != undefined ? setError(respuesta) : setError("")
     },
   });
-  
 
   const goToRegister = () => {
     navigation.navigate('Register')
   }
 
 
-  
-
-  console.log("props",navigation)
-
   return (
-    
+
     <View style={styles.container}>
-      <ImageBackground source={{uri: 'https://i.pinimg.com/564x/e0/2f/d6/e02fd6f417cb47996da604634b29341b.jpg'}} resizeMode="cover" style={styles.image}>
-      <View style={styles.containerForm}>
-        <Spinner visible={isLoading}/>
-        <View style={styles.containerInputs}>
-          <Text style={styles.title}>Iniciar sesión</Text>
-          <TextInput
-            placeholder="Email"
-            style={styles.input}
-            autoCapitalize="none"
-            value={formik.values.email}
-            onChangeText={(text) => formik.setFieldValue("email", text)}
-          />
-          <TextInput
-            placeholder="Contraseña"
-            style={styles.input}
-            autoCapitalize="none"
-            secureTextEntry={true}
-            value={formik.values.password}
-            onChangeText={(text) => formik.setFieldValue("password", text)}
-          />
+      <ImageBackground source={{ uri: 'https://i.pinimg.com/564x/e0/2f/d6/e02fd6f417cb47996da604634b29341b.jpg' }} resizeMode="cover" style={styles.image}>
+        <View style={styles.containerForm}>
+          <Spinner visible={isLoading} />
+          <View style={styles.containerInputs}>
+            <Text style={styles.title}>Iniciar sesión</Text>
+            <TextInput
+              placeholder="Email"
+              style={styles.input}
+              autoCapitalize="none"
+              value={formik.values.email}
+              onChangeText={(text) => formik.setFieldValue("email", text)}
+            />
+            <TextInput
+              placeholder="Contraseña"
+              style={styles.input}
+              autoCapitalize="none"
+              secureTextEntry={true}
+              value={formik.values.password}
+              onChangeText={(text) => formik.setFieldValue("password", text)}
+            />
 
-          <TouchableOpacity style={styles.button} onPress={formik.handleSubmit}>
-            <Text style={styles.buttonText}>Iniciar sesion</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={formik.handleSubmit}>
+              <Text style={styles.buttonText}>Iniciar sesion</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonRegister} onPress={goToRegister}>
-            <Text style={styles.buttonTextRegister}>Registrarse</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonRegister} onPress={goToRegister}>
+              <Text style={styles.buttonTextRegister}>Registrarse</Text>
+            </TouchableOpacity>
 
-          <Text style={styles.error}>{formik.errors.email}</Text>
-          <Text style={styles.error}>{formik.errors.password}</Text>
-          <Text style={styles.error}>{error}</Text>
+            <Text style={styles.error}>{formik.errors.email}</Text>
+            <Text style={styles.error}>{formik.errors.password}</Text>
+            <Text style={styles.error}>{error}</Text>
+          </View>
+
+
         </View>
-        
-        
-      </View>
       </ImageBackground>
     </View>
   );
@@ -101,12 +95,12 @@ function validationSchema() {
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     height: 850,
-    
+
   },
   image: {
     flex: 1,
@@ -114,12 +108,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 500,
   },
-  containerForm:{
+  containerForm: {
     backgroundColor: "#fff",
     borderRadius: 10,
-    
+
   },
-  containerInputs:{
+  containerInputs: {
     marginTop: 10,
   },
   title: {
@@ -138,7 +132,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#000",
     padding: 10,
   },
-  button:{
+  button: {
     backgroundColor: "black",
     borderRadius: 4,
     padding: 15,
@@ -147,11 +141,11 @@ const styles = StyleSheet.create({
     marginLeft: 60,
     marginTop: 20,
   },
-  buttonText:{
+  buttonText: {
     color: "white",
     textAlign: "center",
   },
-  buttonRegister:{
+  buttonRegister: {
     backgroundColor: "#222",
     borderRadius: 4,
     padding: 10,
@@ -160,7 +154,7 @@ const styles = StyleSheet.create({
     marginLeft: 60,
     marginTop: 20,
   },
-  buttonTextRegister:{
+  buttonTextRegister: {
     color: "white",
     textAlign: "center",
   },

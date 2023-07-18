@@ -1,39 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { getProductsApi } from '../api/productsAPI';
+import { getMexicanoToPeso, getProductsByEmail } from '../api/productsAPI';
 import ProductsList from '../components/Product/ProductsList';
+import useAuth from '../hooks/useAuth';
+import { View, Text } from 'react-native';
 
 
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
-  
+  const { getProducts, products ,totalesProducts } = useAuth();
+
   useEffect(() => {
-    (async ()=>{
+    (async () => {
       await loadProducts();
     })()
   }, []);
 
-  const loadProducts = async() => {
+  const loadProducts = async () => {
     try {
-      const response = await getProductsApi();
-      const productos = response;
-      setProducts(productos)
+      await getProducts();
     } catch (error) {
       console.log(error);
     }
   }
-  
+
+
   return (
-    //<SafeAreaView style={styles.screen}>
-      <ProductsList products={products}/>      
-    //</SafeAreaView>
+      <ProductsList products={products} totales={totalesProducts}/>
   )
 }
 
-/* const styles = StyleSheet.create({
-  screen:{
-    flex:1,
-    backgroundColor:"red",
-  }
-})
- */

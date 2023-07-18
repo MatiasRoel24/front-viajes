@@ -9,16 +9,16 @@ export default function ProductCard(props) {
 
 
     const goToProduct = () => {
-        /* console.log(product._id); */
         navigation.navigate('Producto', {id: product._id})
     }
     return (
         <TouchableWithoutFeedback onPress={goToProduct}>
             <View style={styles.card}>
-                <Text style={styles.title}>{product._id}</Text>
                 <Text style={styles.title}>{capitalize(product.titulo)}</Text>
                 <Text style={styles.title}>{capitalize(product.descripcion)}</Text>
-                <Text style={styles.title}>${product.precio}</Text>
+                <Text style={styles.title}>Mexicanos: ${product.precio}</Text>
+                <Text style={styles.title}>Dolares: ${product.dolares}</Text>
+                <Text style={styles.title}>Pesos: ${product.pesos}</Text>
             </View>
         </TouchableWithoutFeedback>
     )
