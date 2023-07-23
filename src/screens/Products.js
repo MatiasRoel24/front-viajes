@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { getMexicanoToPeso, getProductsByEmail } from '../api/productsAPI';
+import React, { useEffect } from 'react'
 import ProductsList from '../components/Product/ProductsList';
 import useAuth from '../hooks/useAuth';
-import { View, Text } from 'react-native';
 
 
 

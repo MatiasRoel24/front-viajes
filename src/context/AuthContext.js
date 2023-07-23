@@ -86,9 +86,9 @@ export const AuthProvider = (props) => {
               totalPesos += Number(precio["cantida_pesos"]);
             }
             totales = {
-              "totalDolares":totalDolares,
-              "totalMexicanos":totalMexicanos,
-              "totalPesos":totalPesos
+              "totalDolares":totalDolares.toFixed(3),
+              "totalMexicanos":totalMexicanos.toFixed(3),
+              "totalPesos":totalPesos.toFixed(3)
             }
       
             setTotalesProducts(totales)

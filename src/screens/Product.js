@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { getProduct } from '../api/productsAPI';
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { colors } from '../utils/constants';
 
 
 export default function Product(props) {
@@ -14,8 +15,9 @@ export default function Product(props) {
         headerRight: () => null,
         headerLeft: () => 
         <Icon name='arrow-left' 
-              color='black' 
-              size={25} 
+              color= {colors.white} 
+              size={17} 
+              style={{marginRight: 10}}
               onPress={navigation.goBack}
         /> 
       })
@@ -35,7 +37,6 @@ export default function Product(props) {
   }, [params])
 
   if(!product) return null;
-  
 
   return (
     <View>

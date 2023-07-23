@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
-import {capitalize} from 'lodash'
+import { capitalize } from 'lodash'
 import { useNavigation } from "@react-navigation/native";
+import { Button, Avatar, ListItem, HStack } from "@react-native-material/core";
+
 
 export default function ProductCard(props) {
     const { product } = props;
@@ -9,32 +10,18 @@ export default function ProductCard(props) {
 
 
     const goToProduct = () => {
-        navigation.navigate('Producto', {id: product._id})
+        navigation.navigate('Producto - Detalle', { id: product._id })
     }
+
     return (
-        <TouchableWithoutFeedback onPress={goToProduct}>
-            <View style={styles.card}>
-                <Text style={styles.title}>{capitalize(product.titulo)}</Text>
-                <Text style={styles.title}>{capitalize(product.descripcion)}</Text>
-                <Text style={styles.title}>Mexicanos: ${product.precio}</Text>
-                <Text style={styles.title}>Dolares: ${product.dolares}</Text>
-                <Text style={styles.title}>Pesos: ${product.pesos}</Text>
-            </View>
-        </TouchableWithoutFeedback>
+        <ListItem
+            leadingMode="avatar"
+            leading={
+                <Avatar image={{ uri: "https://static.vecteezy.com/system/resources/previews/000/616/943/original/vector-shopping-bag-icon.jpg" }} />
+            }
+            title={capitalize(product.titulo)}
+            secondaryText={`$${product.precio}`}
+            trailing={<HStack ><Button color='black' compact variant="text" title="Ver mas" onPress={goToProduct} /></HStack>}
+        />
     )
 }
-
-const styles = StyleSheet.create({
-    card:{
-        backgroundColor:"black",
-        height:250,
-        marginTop:8,
-        marginBottom:2,
-        alignItems:"center",
-        justifyContent:"center"
-    },
-    title:{
-        color:"white",
-        textAlign:"center"
-    }
-})

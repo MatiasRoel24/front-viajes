@@ -17,7 +17,7 @@ export async function getProductsApi(){
 
 export async function getProductsByEmail(correo){
     try {
-        let products = await fetch(`${API_HOST}/productos/${correo}`)
+        let products = await fetch(`${API_HOST}/productos-correo/${correo}`)
         .then(response => response.json())
         .then(result => result )
         .catch(error => console.log('ERROR CONSULTA API-PRODUCTS: ', error)); 

@@ -33,10 +33,10 @@ export default function Register() {
         <View style={styles.containerForm}>
           <Spinner visible={isLoading} />
           <View style={styles.containerInputs}>
-            <Text style={styles.title}>Registro de usuarios</Text>
+            <Text style={styles.title}>Registre su usuario</Text>
             <TextInput
               variant="standard"
-              label="Nombre de usuario"
+              label="Usuario"
               style={styles.input}
               autoCapitalize="none"
               value={formik.values.username}
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 500,
+    height: 1000
   },
   containerForm: {
     backgroundColor: "#fff",
