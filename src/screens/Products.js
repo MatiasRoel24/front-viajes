@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import ProductsList from '../components/Product/ProductsList';
 import useAuth from '../hooks/useAuth';
 
-
-
 export default function Products() {
   const { getProducts, products ,totalesProducts } = useAuth();
 

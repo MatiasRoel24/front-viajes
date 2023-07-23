@@ -3,13 +3,23 @@ import React from 'react'
 import ProductCard from './ProductCard';
 import { Button } from "@react-native-material/core";
 import { colors } from '../../utils/constants';
+import { useNavigation } from '@react-navigation/core';
+import Spinner from "react-native-loading-spinner-overlay";
+import useAuth from '../../hooks/useAuth';
+
 
 export default function ProductsList(props) {
     const { products } = props;
+    const { isLoading } = useAuth();
+    const navigation = useNavigation();
+
+    const goToAddProduct = () => {
+        navigation.navigate('Producto - Agregar')
+    }
 
     return (
         <View style={styles.container}>
-            
+            <Spinner visible={isLoading} />
             <FlatList
                 data={products}
                 numColumns={1}
@@ -19,7 +29,7 @@ export default function ProductsList(props) {
                 contentscreentyle={styles.flatListContentContainer}
             />
 
-        <Button title="+" style={styles.buttonAdd} color={colors.triadic} tintColor={colors.white}/>
+        <Button title="+" style={styles.buttonAdd} color={colors.triadic} tintColor={colors.white} onPress={goToAddProduct}/>
         </View>
 
     );

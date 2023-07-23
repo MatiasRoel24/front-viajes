@@ -61,20 +61,6 @@ export default function LoginForm() {
     );
 }
 
-function initialValues() {
-    return {
-        email: "",
-        password: "",
-    };
-}
-
-function validationSchema() {
-    return {
-        email: Yup.string().required("El mail es obligatorio"),
-        password: Yup.string().required("La contraseña es obligatoria"),
-    };
-}
-
 const styles = StyleSheet.create({
     container: {
         display: "flex",

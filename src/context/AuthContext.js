@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react'
 import { createUser, loginApiSesion } from '../api/loginApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getMexicanoToPeso, getProductsByEmail } from '../api/productsAPI';
+import { getMexicanoToPeso, getProductsByEmail, createProduct } from '../api/productsAPI';
 
 export const AuthContext = createContext();
 
@@ -67,6 +67,7 @@ export const AuthProvider = (props) => {
 
     const getProducts = async () => {
         try {
+            setIsLoading(true);
             const response = await getProductsByEmail(userInfo.correo);
             const productos = response;
             let totalDolares = 0;
@@ -90,16 +91,35 @@ export const AuthProvider = (props) => {
               "totalMexicanos":totalMexicanos.toFixed(3),
               "totalPesos":totalPesos.toFixed(3)
             }
-      
-            setTotalesProducts(totales)
-            setProducts(productos)
+            
+
+            setTotalesProducts(totales);
+            setProducts(productos);
+            setIsLoading(false);
         } catch (error) {
-            console.log("error en ISLOGGEDIN " + error)
+            console.log("error en GET-PRODUCTSBYEMAIL " + error)
         }
        
     }
 
-    
+    const createNewProduct = async (titulo, descripcion, correo, precio) => {
+
+        if(!titulo || !descripcion || !correo || !precio) throw new Error("Error campos de productos incompletos");
+        const precioNumber = Number(precio);
+        try {
+            const producto = await createProduct(titulo,descripcion,correo,precioNumber);
+            if(producto){
+                getProducts();
+                return true;
+            }else{
+                throw new Error("Error al crear el producto");
+            }
+            
+        }catch(error){
+            console.log("error en CREATEPODUCT " + error)
+        }
+
+    }
 
     useEffect(() => {
         isLoggedIn();
@@ -114,7 +134,8 @@ export const AuthProvider = (props) => {
         logOut,
         products,
         totalesProducts,
-        getProducts
+        getProducts,
+        createNewProduct
     };
 
 

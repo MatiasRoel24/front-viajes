@@ -68,7 +68,7 @@ export default function Register() {
             <Text style={styles.error}>{formik.errors.password}</Text>
 
             <View style={{ width: 200, marginLeft: 60, marginTop: 10 }}>
-              <Button title="Registrarse" color={`${colors.black}`} tintColor={"white"} onPress={formik.handleSubmit} />
+              <Button title="Registrarse" color={`${colors.black}`} tintColor={"white"} onPress={formik.handleSubmit}/>
             </View>
             <Text style={styles.errorUltimo}>{error}</Text>
           </View>

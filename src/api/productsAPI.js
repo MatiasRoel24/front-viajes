@@ -36,9 +36,42 @@ export async function getProduct(id){
         .then(response => response.json())
         .then(result => result)
         .catch(error => console.log('ERROR CONSULTA API-PRODUCTS', error)); 
-        
+        const valores = await getMexicanoToPeso(product.precio);
+        product["dolares"] = valores["cantida_dolares"];
+        product["pesos"] = valores["cantida_pesos"];
         return product;
     } catch (error) {
+        throw error;
+    }
+}
+
+export async function createProduct(titulo, descripcion, correo, precio){
+    try {
+
+        const raw = JSON.stringify({
+            "titulo": titulo,
+            "descripcion": descripcion,
+            "correo": correo,
+            "precio": Number(precio)
+          });
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: raw,
+            redirect: 'follow'
+          };
+
+        const url = `${API_HOST}/productos`;
+        let producto = await fetch(url,requestOptions)
+        .then(response => response.json())
+        .then(result => result)
+        .catch(error => console.log('ERROR CONSULTA CREATE-PROIDUCT', error)); 
+
+        if(!producto) throw new Error("Error al crear el producto");
+
+        return true;
+    } catch (error) {
+        console.log("CREATE PRODUCT API ", error)
         throw error;
     }
 }
