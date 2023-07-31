@@ -36,14 +36,10 @@ export async function createUser(username, email, password) {
         const url = `${API_HOST}/usuarios`
         const userInfo = await fetch(url, requestOptions)
             .then(response => response.json())
-            .then(result => {
-               return result
-            })
+            .then(result => result)
             .catch(error => {
-
                 console.log('error', error)
             });
-
         return userInfo
     } catch (error) {
         console.log("ERROR LOGIN ---> " + error);

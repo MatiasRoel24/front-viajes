@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        width: 500,
+        width: '100%',
     },
     containerPrimary: {
         height: "100%",

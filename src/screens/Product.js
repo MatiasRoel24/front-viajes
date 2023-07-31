@@ -37,8 +37,6 @@ export default function Product(props) {
     })()
   }, [params])
 
-
-
   if (!product) return null;
 
   return (

@@ -6,6 +6,7 @@ export const numberToCurrency = (number) => {
 
 export const currencyFormat = (number) => {
     if (!number) throw new Error("El parametro debe ser un string");
+    if(isNaN(number)) return '...'
     const precioFormated = new Intl.NumberFormat('es-AR').format(number);
     return precioFormated;
 }

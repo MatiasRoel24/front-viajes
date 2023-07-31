@@ -93,15 +93,15 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: 850,
+    height: '100%',
 
   },
   image: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 500,
-    height: 1000
+    width: '100%',
+    height: '100%'
   },
   containerForm: {
     backgroundColor: "#fff",

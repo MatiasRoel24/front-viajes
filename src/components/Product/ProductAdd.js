@@ -62,7 +62,7 @@ export default function Register() {
                     <TextInput
                         variant="standard"
                         keyboardType="numeric"
-                        label="Precio"
+                        label="Precio (MXN)"
                         style={styles.input}
                         autoCapitalize="none"
                         value={formik.values.precio}

@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_HOST } from "../utils/constants";
 
 export async function getProductsApi(){
@@ -11,6 +12,7 @@ export async function getProductsApi(){
         const productos = products.map(product => product)
         return productos;
     } catch (error) {
+        console.log("getProductsApi() ", error)
         throw error;
     }
 }
@@ -25,22 +27,26 @@ export async function getProductsByEmail(correo){
         const productos = products.map(product => product)
         return productos;
     } catch (error) {
+        console.log("getProductsByEmail() ", error)
         throw error;
     }
 }
 
 export async function getProduct(id){
     try {
+        const valorMexicano = await AsyncStorage.getItem('mexicano');
         const url = `${API_HOST}/productos/${id}`;
         let product = await fetch(url)
         .then(response => response.json())
         .then(result => result)
         .catch(error => console.log('ERROR CONSULTA API-PRODUCTS', error)); 
-        const valores = await getMexicanoToPeso(product.precio);
+        const valores = await getMexicanoToPeso(product.precio, valorMexicano);
         product["dolares"] = valores["cantida_dolares"];
         product["pesos"] = valores["cantida_pesos"];
+
         return product;
     } catch (error) {
+        console.log("getProduct(id) ", error)
         throw error;
     }
 }
@@ -71,21 +77,21 @@ export async function createProduct(titulo, descripcion, correo, precio){
 
         return true;
     } catch (error) {
-        console.log("CREATE PRODUCT API ", error)
+        console.log("createProduct() ", error)
         throw error;
     }
 }
 
-export async function getMexicanoToPeso(mexicanos){
+export async function getMexicanoToPeso(mexicanos, valorMexicanos){
     try {
-        const url = `${API_HOST}/peso/${mexicanos}`;
+        const url = `${API_HOST}/peso/${mexicanos}/${valorMexicanos}`;
         let prices = await fetch(url)
         .then(response => response.json())
         .then(result => result)
         .catch(error => console.log('ERROR CONSULTA API-PRODUCTS', error)); 
-
         return prices;
     } catch (error) {
+        console.log("getMexicanoToPeso() ", error);
         throw error;
     }
 }
