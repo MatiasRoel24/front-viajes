@@ -29,7 +29,7 @@ export default function ProductsList(props) {
                 contentscreentyle={styles.flatListContentContainer}
             />
 
-        <Button title="+" style={styles.buttonAdd} color={colors.triadic} tintColor={colors.white} onPress={goToAddProduct}/>
+        <Button title="+" style={styles.buttonAdd} tintColor={colors.white} onPress={goToAddProduct}/>
         </View>
 
     );
