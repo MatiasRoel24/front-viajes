@@ -1,15 +1,19 @@
 import { StyleSheet, View } from 'react-native'
-import { Text } from "@react-native-material/core";
+import { Text, Button } from "@react-native-material/core";
 import React, { useState, useEffect } from 'react'
 import { getProduct } from '../api/productsAPI';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { colors } from '../utils/constants';
 import { currencyFormat } from '../utils/numbers';
+import useAuth from "../hooks/useAuth";
+
 
 
 export default function Product(props) {
   const { navigation, route: { params } } = props;
   const [product, setProduct] = useState(null);
+  const { deleteProduct } = useAuth();
+
 
   useEffect(() => {
     (() => {
@@ -18,7 +22,7 @@ export default function Product(props) {
         headerLeft: () =>
           <Icon name='arrow-left'
             color={colors.white}
-            size={17}
+            size={25}
             style={{ marginRight: 10 }}
             onPress={navigation.goBack}
           />
@@ -36,6 +40,14 @@ export default function Product(props) {
       }
     })()
   }, [params])
+
+  const deleteProductDetail = async (id) => {
+
+    const respuesta = await deleteProduct(id);
+    if (respuesta == undefined) {
+      navigation.goBack();
+    }
+  }
 
   if (!product) return null;
 
@@ -62,6 +74,10 @@ export default function Product(props) {
       <View style={styles.containerInfo}>
         <Text variant="h5">Precio en pesos:</Text>
         <Text variant="h4">${currencyFormat(product.pesos)}</Text>
+      </View>
+
+      <View style={styles.containerInfo}>
+        <Button style={{marginTop: 5}} title="Eliminar producto" color='error' onPress={() => deleteProductDetail(params.id)}/>
       </View>
     </View>
   )

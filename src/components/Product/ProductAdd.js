@@ -11,8 +11,11 @@ import { Button, TextInput } from "@react-native-material/core";
 import { colors } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 import { numberToCurrency } from "../../utils/numbers";
+import { SelectList } from 'react-native-dropdown-select-list'
+
 
 export default function Register() {
+    const [selected, setSelected] = useState("");
     const [error, setError] = useState("");
     const { userInfo, createNewProduct } = useAuth();
     const navigation = useNavigation();
@@ -23,15 +26,25 @@ export default function Register() {
         validateOnChange: false,
         onSubmit: async (formValue) => {
             setError("");
-            const { titulo, descripcion, precio } = formValue;
-
+            const { titulo, descripcion, precio } = formValue;            
             const respuesta = await createNewProduct(titulo, descripcion, userInfo.correo, numberToCurrency(precio));
-            if(respuesta){
+            if (respuesta) {
                 navigation.goBack();
-            } 
+            }
             respuesta ? setError(respuesta) : setError("");
         },
     });
+
+    const data = [
+        {key:'1', value:'Ropa'},
+        {key:'2', value:'Tecnologia'},
+        {key:'3', value:'Regalo'},
+        {key:'4', value:'Comida'},
+        {key:'5', value:'Excursion'},
+        {key:'6', value:'Transporte'},
+        {key:'7', value:'Calzado'},
+        {key:'8', value:'Otros'},
+    ]
 
     return (
         <View style={styles.container}>
@@ -48,15 +61,16 @@ export default function Register() {
                         color="#157A6E"
                     />
                     <Text style={styles.error}>{formik.errors.titulo}</Text>
-                    <TextInput
-                        variant="standard"
+                    <SelectList
                         label="Categoria"
-                        style={styles.input}
-                        autoCapitalize="none"
-                        value={formik.values.descripcion}
-                        onChangeText={(text) => formik.setFieldValue("descripcion", text)}
-                        color="#157A6E"
+                        placeholder="Seleccione una categoria"
+                        setSelected={(value) => setSelected(value - 1)}
+                        data={data}
+                        save={formik.values.descripcion}
+                        boxStyles={{width: 290, marginTop: 30}}
+                        onSelect={() => formik.setFieldValue("descripcion", String(data[selected].value))}
                     />
+                    
                     <Text style={styles.error}>{formik.errors.descripcion}</Text>
 
                     <TextInput
@@ -71,8 +85,8 @@ export default function Register() {
                     />
                     <Text style={styles.error}>{formik.errors.precio}</Text>
 
-                    <View style={{ width: 200, marginLeft: 60, marginTop: 10 }}>
-                        <Button title="Agregar producto" color={`${colors.black}`} tintColor={"white"}  onPress={formik.handleSubmit} />
+                    <View style={{ width: 200, marginLeft: 10, marginTop: 10}}>
+                        <Button title="Agregar producto" color={`${colors.black}`} tintColor={"white"} onPress={formik.handleSubmit} />
                     </View>
                     <Text style={styles.errorUltimo}>{error}</Text>
                 </View>
@@ -93,7 +107,7 @@ function initialValues() {
 function validationSchema() {
     return {
         titulo: Yup.string().required("El titulo es obligatorio"),
-        descripcion: Yup.string().required("La descripcion es obligatoria"),
+        descripcion: Yup.string().required("La categoria es obligatoria"),
         precio: Yup.string().required("El precio es obligatorio"),
     };
 }
@@ -117,6 +131,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     containerInputs: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         marginTop: 10,
         padding: 10,
     },

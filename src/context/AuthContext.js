@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react'
 import { createUser, loginApiSesion } from '../api/loginApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getMexicanoToPeso, getProductsByEmail, createProduct } from '../api/productsAPI';
+import { getMexicanoToPeso, getProductsByEmail, createProduct, deleteProductApi } from '../api/productsAPI';
 
 export const AuthContext = createContext();
 
@@ -110,6 +110,18 @@ export const AuthProvider = (props) => {
 
     }
 
+    const deleteProduct = async (id) => {
+        try {
+            setIsLoading(true);
+            const deleteProduct = await deleteProductApi(id);
+            if(deleteProduct == undefined) getProducts();
+            setIsLoading(false);
+        } catch (error) {
+            console.log("error en DELETE " + error)
+        }
+
+    }
+
     const getPresupuesto = async () => {
         let presupuestoStorage = await AsyncStorage.getItem('presupuesto');
         setPresupuesto(presupuestoStorage);
@@ -157,7 +169,8 @@ export const AuthProvider = (props) => {
         getPresupuesto,
         presupuesto,
         getValorMexicano,
-        valorMexicano
+        valorMexicano,
+        deleteProduct
     };
 
 

@@ -82,6 +82,32 @@ export async function createProduct(titulo, descripcion, correo, precio){
     }
 }
 
+
+export async function deleteProductApi(id){
+    try {
+
+        let raw = "";
+
+        let requestOptions = {
+          method: 'DELETE',
+          body: raw,
+          redirect: 'follow'
+        };
+
+        const url = `${API_HOST}/productos/${id}`;
+        
+        fetch(url, requestOptions)
+          .then(response => response.status == 204 ? true : false)
+          .catch(error => console.log('error', error));
+
+    } catch (error) {
+        console.log("deleteProduct() ", error)
+        throw error;
+    }
+}
+
+
+
 export async function getMexicanoToPeso(mexicanos, valorMexicanos){
     try {
         const url = `${API_HOST}/peso/${mexicanos}/${valorMexicanos}`;
