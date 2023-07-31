@@ -26,7 +26,7 @@ export default function InputMexicanos() {
       <TextInput
         variant="outlined"
         keyboardType="numeric"
-        label="Ingrese el valor de mexicanos"
+        label="Ingrese el valor (MXN)"
         autoCapitalize="none"
         style={styles.textInput}
         value={formik.values.mexicano}
